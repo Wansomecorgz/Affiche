@@ -2,7 +2,6 @@ package ru.netology.domain;
 
 public class MovieManager {
     private MovieData[] movies = new MovieData[0];
-    private MovieData[] moviesReverse = new MovieData[0];
     private int countMovies = 10;
 
     public MovieManager() {
@@ -20,14 +19,6 @@ public class MovieManager {
         this.movies = movies;
     }
 
-    public MovieData[] getMoviesReverse() {
-        return moviesReverse;
-    }
-
-    public void setMoviesReverse(MovieData[] moviesReverse) {
-        this.moviesReverse = moviesReverse;
-    }
-
     public int getCountMovies() {
         return countMovies;
     }
@@ -38,9 +29,7 @@ public class MovieManager {
 
     public void add(MovieData movie) {
         MovieData[] tmp = new MovieData[movies.length + 1];
-        for (int i = 0; i < movies.length; i++) {
-            tmp[i] = movies[i];
-        }
+        System.arraycopy(movies, 0, tmp, 0, movies.length);
         tmp[movies.length] = movie;
         movies = tmp;
     }
@@ -49,7 +38,7 @@ public class MovieManager {
         getMovies();
     }
 
-    public void findLast() {
+    public MovieData[] findLast() {
         if (countMovies > movies.length) {
             countMovies = movies.length;
         }
@@ -57,6 +46,7 @@ public class MovieManager {
         for (int i = 0, j = movies.length - 1; i < countMovies; i++, j--) {
             tmp[i] = movies[j];
         }
-        moviesReverse = tmp;
+        movies = tmp;
+        return tmp;
     }
 }
